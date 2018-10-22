@@ -1,0 +1,2 @@
+
+# FSA : french sentiment analysis
