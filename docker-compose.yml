@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeme
+      PGDATA: /data/postgres
+    volumes:
+
+       - $HOME/containers/postgresql/data:$HOME/containers/postgresql/data2
+    ports:
+      - "5433:5433"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  pgadmin:
+    links:
+      - postgres:postgres
+    image: fenglc/pgadmin4
+    volumes:
+       - $HOME/containers/pgadmin/data:$HOME/containers/pgadmin/data
+    ports:
+      - "5051:5051"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
